@@ -43,11 +43,12 @@ players = {"nadal":rafa, "rafa":rafa, "nad":rafa, "djokovic":djoko, "djoko":djok
 
 connected = socket.gethostbyname(socket.gethostname())!="127.0.0.1"
 if connected:
-    player = input("Joueur : ")
-    while player not in players and ("-" not in player or " " in player):
+    player = input("Joueur : ").lower()
+    while player not in players and not player.isalpha() and len(player.split())!=2:
         player = input("Veuillez entrer un nom correct :")
         
     if player in players: player = players[player]
+    else: player = "-".join(player.split())
     contents = getPlayerLastResult(player)
     if contents:
         date,tour,gagnant,perdant, score,tournoi = contents
